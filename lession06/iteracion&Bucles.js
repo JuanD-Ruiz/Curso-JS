@@ -60,3 +60,171 @@ while (true) {
 
   console.log("Número incorrecto, intenta de nuevo.");
 }
+
+/* 
+
+DO WHILE
+
+🧩 Reto para ti
+Haz un programa con do...while que:
+
+Pida al usuario que escriba una contraseña (puedes simular esto con prompt si estás en navegador).
+
+El ciclo debe repetirse hasta que el usuario escriba la contraseña correcta: "js123".
+
+Cuando la contraseña sea correcta, debe mostrar un mensaje como: "¡Acceso concedido!".
+
+*/
+let contraseña;
+
+do {
+  contraseña = prompt("Ingresa tu contraseña");
+} while (contraseña !== 'jquery');
+
+console.log("¡Acceso concedido!")
+
+/* 
+
+🔐 Reto 2: Contraseña con intentos limitados
+Haz un programa con do...while que:
+
+Pida al usuario que escriba una contraseña (correcta = 'javascript123').
+
+El usuario solo tendrá 3 intentos para adivinarla.
+
+Si la escribe bien antes de los 3 intentos, muestra "¡Acceso concedido!".
+
+Si falla las 3 veces, muestra "Acceso denegado. Demasiados intentos.".
+
+*/
+
+let entrada;
+let contador1 = 0;
+
+do {
+  entrada = prompt("Ingresa la contraseña correcta");
+  contador1++;
+
+} while (entrada !== "Pescado" && contador1 < 3);
+if (entrada === "Pescado"){
+  console.log("¡Acceso concedido!")
+} else {
+  console.log("Acceso denegado. Demasiados intentos.")
+}
+
+/*
+
+For
+
+🎯 Reto
+
+Reto básico:
+Crea un bucle for que imprima los números del 1 al 10.
+
+Reto intermedio:
+Tienes el siguiente array:
+
+
+Escribe un bucle for que imprima:
+
+Fruta #1: manzana
+Fruta #2: banana
+Fruta #3: cereza
+Fruta #4: kiwi
+
+*/
+
+for (let i = 0; i < 10; i++){
+  console.log(i+1)
+}
+
+var frutas = ["manzana", "banana", "cereza", "kiwi"];
+
+for (let index = 0; index < frutas.length; index++) {
+
+  console.log(`Fruta #${index+1}: ${frutas[index]}`);
+  
+}
+
+/*
+
+for...of, for...in, forEach
+
+🔁 Reto 1: for...of
+🧩 Enunciado:
+Tienes el siguiente array de nombres:
+
+const nombres = ["Carlos", "Ana", "Luis", "Marta", "Jorge"];
+👉 Crea un bucle for...of que recorra este array e imprima un mensaje como:
+
+Hola, Carlos!
+Hola, Ana!
+...
+
+*/
+const nombres = ["Carlos", "Ana", "Luis", "Marta", "Jorge"];
+for(const nombre of nombres ){
+  console.log(`Hola, ${nombre}!`);
+}
+/*
+🔁 Reto 2: for...in
+🧩 Enunciado:
+Tienes el siguiente objeto:
+
+
+const persona = {
+  nombre: "Laura",
+  edad: 30,
+  profesion: "Diseñadora"
+};
+👉 Usa un bucle for...in para recorrer las propiedades del objeto y mostrar esto en consola:
+
+nombre: Laura
+edad: 30
+profesion: Diseñadora
+Bonus: Usa Object.hasOwn() para asegurarte de que solo imprimes propiedades propias.
+*/
+
+const persona = {
+  nombre: "Laura",
+  edad: 30,
+  profesion: "Diseñadora"
+};
+
+for(dato in persona){
+  console.log(`${dato}: ${persona[dato]}`);
+}
+
+/*
+🔁 Reto 3: forEach()
+🧩 Enunciado:
+Tienes un array de precios:
+
+const precios = [10, 20, 30, 40];
+👉 Usa forEach() para:
+
+Mostrar cada precio en consola.
+
+Calcular el total de la suma de todos los precios.
+
+Mostrar el total al final.
+
+📌 Salida esperada:
+
+Precio: 10
+Precio: 20
+Precio: 30
+Precio: 40
+Total: 100
+
+*/
+
+const precios = [10, 20, 30, 40];
+let total = 0;
+
+precios.forEach((precio) => {
+  console.log(`Pecio: ${precio}`);
+  total += precio;
+});
+
+console.log(`Total: ${total}`)

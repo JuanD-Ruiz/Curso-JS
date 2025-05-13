@@ -227,4 +227,127 @@ precios.forEach((precio) => {
   total += precio;
 });
 
-console.log(`Total: ${total}`)
+console.log(`Total: ${total}`);
+
+/*
+
+Iteradores
+
+🎯 Reto: Crear un iterable personalizado para números impares del 1 al 9
+Crea un objeto iterable (no una función generadora) que devuelva los números impares del 1 al 9 cuando se recorra con un bucle for...of.
+
+✅ Requisitos:
+Implementa el método [Symbol.iterator]() en un objeto llamado numImpares.
+
+Dentro del método, crea un objeto iterador con la función next().
+
+El método next() debe:
+
+Devolver los números impares desde 1 hasta 9.
+
+Indicar que ha terminado cuando el número supere el 9.
+
+Recorre el iterable usando un bucle for...of y muestra cada valor en consola.
+
+*/
+
+const numImpares = {
+  [Symbol.iterator](){
+    let count = 1;
+    return{
+      next(){
+        if (count < 10){
+          const value = count;
+          count += 2;
+          return { value, done: false}
+        } else {
+          return {done: true}
+        }
+      }
+    }
+  }
+}
+
+for (const impar of numImpares){
+  console.log(impar);
+}
+
+/*
+
+JavaScript asincrono
+
+Promesas
+
+🧠 Reto: Simulador de consultas a servidores
+Imagina que tienes que hacer una consulta a varios servidores (API ficticias) para obtener datos.
+Algunos responden rápido, otros lento, y alguno puede fallar.
+
+🎯 Objetivo:
+Simula 5 servidores que responden en diferentes tiempos (1s a 4s).
+
+Algunos deben responder con datos, otros con error (simulado).
+
+Usa Promise.race() para mostrar el primer servidor que respondió, sin importar si fue éxito o error.
+
+Luego usa Promise.any() para mostrar el primer servidor exitoso.
+
+Al final, usa Promise.allSettled() para mostrar el resultado de todos los servidores.
+
+*/
+
+function consultaServidor(nombre, tiempo, exito){
+  return new Promise((consulta, reject) => {
+    console.log(`${nombre} se esta analizando...`);
+    
+    setTimeout(() => {
+      if(exito){
+        consulta(`${nombre}: primer servidor que se obtuvo datos de forma exitosa`)
+      } else {
+        reject(`${nombre}: primer servidor en conectar, sin encontrar datos`)
+      }
+    }, tiempo);
+  });
+
+}
+const servidores = [
+  consultaServidor("Servidor A", 4000, true),
+  consultaServidor("Servidor B", 2000, false),  
+  consultaServidor("Servidor C", 3000, true),   
+  consultaServidor("Servidor D", 1000, false),  
+  consultaServidor("Servidor E", 2500, true),   
+]
+
+async function promiseRace(){
+
+  try {
+    const resultado = await Promise.race(servidores);
+    console.log(` Resultado (race): ${resultado}`);
+  } catch (error) {
+    console.error(`Primer error (race): ${error}`);
+  }
+}
+
+async function promiseAny() {
+  try {
+    const resultado = await Promise.any(servidores);
+    console.log(`Resultado (any): ${resultado}`)
+  } catch (error) {
+    console.error(`Primer error (any): ${error}`)
+  }
+  
+}
+
+async function promiseAllSettled() {
+  const resultado = await Promise.allSettled(servidores);
+  resultado.forEach((resultado, i) => {
+    if (resultado.status == "fulfilled"){
+      console.log(`Exito: ${resultado.value}`);
+    } else {
+      console.warn(`Fallo: ${resultado.reason}`);
+    }
+  });
+}
+
+await promiseRace();
+await promiseAny();
+await promiseAllSettled();
